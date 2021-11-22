@@ -2,6 +2,8 @@
 
 ## Umbra audit
 
+[Report](https://consensys.net/diligence/audits/2021/03/umbra-smart-contracts)
+
 ### 102. Umbra
 
 **Finding**: Document potential edge cases for hook receiver contracts
@@ -29,6 +31,8 @@
     - The contract provides no mechanism to update its internal accounting in response to these unexpected balance adjustments, and funds may be lost as a result.
 
 ## DeFi DefiSaver Audit
+
+[Report](https://consensys.net/diligence/audits/2021/03/defi-saver)
 
 ### 104. DeFi Saver
 
@@ -64,6 +68,8 @@
 
 ## DAOfi Audit
 
+[Report](https://consensys.net/diligence/audits/2021/02/daofi)
+
 ### 108. DAOfi
 
 **Finding**: Remove stale comments
@@ -74,6 +80,8 @@
 
 ## mstable-1.1 Audit
 
+[Report](https://consensys.net/diligence/audits/2020/07/mstable-1.1)
+
 ### 109. mstable-1.1
 
 **Finding**: Discrepancy between code and comments
@@ -83,6 +91,8 @@
 **Recommendation**: Update the code or the comment to be consistent
 
 ## DAOfi Audit
+
+[Report](https://consensys.net/diligence/audits/2021/02/daofi/#remove-stale-comments)
 
 ### 110. DAOfi
 
@@ -102,6 +112,8 @@
 
 ## Fei Protocol Audit
 
+[Report](https://consensys.net/diligence/audits/2021/01/fei-protocol)
+
 ### 112. Fei Protocol
 
 **Finding**: `GovernorAlpha` proposals may be canceled by the proposer, even after they have been accepted and queued
@@ -112,6 +124,8 @@
 
 ## eRLC Audit
 
+[Report](https://consensys.net/diligence/audits/2021/01/erlc-iexec)
+
 ### 113. eRLC
 
 **Finding**: Require a delay period before granting `KYC_ADMIN_ROLE` Acknowledged:
@@ -121,6 +135,8 @@
 **Recommendation**: Use a `TimelockController` as the `KYC_DEFAULT_ADMIN` of the `eRLC` contract
 
 ## 1inch liquidity protocol audity
+
+[Report](https://consensys.net/diligence/audits/2020/12/1inch-liquidity-protocol)
 
 ### 114. 1inch Liquidity Protocol
 
@@ -165,6 +181,8 @@
 **Recommendation**: We recommend giving the user advance notice of changes with a time lock. For example, make all system-parameter and upgrades require two steps with a mandatory time window between them. The first step merely broadcasts to users that a particular change is coming, and the second step commits that change after a suitable waiting period. This allows users that do not accept the change to withdraw immediately.
 
 ## Growth DeFi Audit
+
+[Report](https://consensys.net/diligence/audits/2020/12/growth-defi-v1)
 
 ### 119. Growth DeFi
 
@@ -216,6 +234,8 @@
 
 ## Paxos Audit
 
+[Report](https://consensys.net/diligence/audits/2020/11/paxos)
+
 ### 125. Paxos
 
 **Finding**: Owners can never be removed
@@ -228,6 +248,8 @@
 
 ## Aave Protocol V2 Audit
 
+[Report](https://consensys.net/diligence/audits/2020/09/aave-protocol-v2)
+
 ### 126. Aave Protocol V2
 
 **Finding**: Potential manipulation of stable interest rates using flash loans
@@ -238,6 +260,8 @@
 
 ## Aave Governance DAO Audit
 
+[Report](https://consensys.net/diligence/audits/2020/08/aave-governance-dao)
+
 ### 127. Aave Governance DAO
 
 **Finding**: Only whitelist validated assets
@@ -247,6 +271,8 @@
 **Recommendation**: Make sure to audit any new whitelisted asset.
 
 ## Aave CPM Price Provider Audit
+
+[Report](https://consensys.net/diligence/audits/2020/05/aave-cpm-price-provider)
 
 ### 128. Aave CPM Price Provider
 
@@ -266,6 +292,8 @@
 
 ## Lien Protocol Audit
 
+[Report](https://consensys.net/diligence/audits/2020/05/lien-protocol)
+
 ### 130. Lien Protocol
 
 **Finding**: Consider an iterative approach to launching. Be aware of and prepare for worst-case scenarios
@@ -275,6 +303,8 @@
 **Recommendation**: We recommend identifying which components are crucial for a minimum viable system, then focusing efforts on ensuring the security of those components first, and then moving on to the others. During the early life of the system, have a method for pausing and upgrading the system.
 
 ## Balancer Finance Audit
+
+[Report](https://consensys.net/diligence/audits/2020/05/balancer-finance)
 
 ### 131. Balancer Finance
 
@@ -293,6 +323,8 @@
 **Recommendation**: Place `_lock_` before other modifiers; ensuring it is the very first and very last thing to run when a function is called.
 
 ## MCDEX Mai Protocol V2 Audit
+
+[Report](https://consensys.net/diligence/audits/2020/05/mcdex-mai-protocol-v2)
 
 ### 133. MCDEX Mai Protocol V2
 

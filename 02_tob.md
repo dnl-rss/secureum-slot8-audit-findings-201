@@ -2,6 +2,8 @@
 
 ## Liquidity Audit
 
+[Report](https://github.com/trailofbits/publications/blob/master/reviews/Liquity.pdf)
+
 ### 134. Liquidity
 
 **Finding**: Reentrancy could lead to incorrect order of emitted events
@@ -11,6 +13,8 @@
 **Recommendation**: Apply the checks-effects-interactions pattern and move the event emissions above the call to `_moveTokensAndETHfromAdjustment` to avoid the potential reentrancy.
 
 ## Origin Dollar Audit
+
+[Report](https://github.com/trailofbits/publications/blob/master/reviews/OriginDollar.pdf)
 
 ### 135. Origin Dollar
 
@@ -37,6 +41,8 @@
 **Recommendation**: Ensure contracts inherit from their interfaces
 
 ## Yield Protocol Audit
+
+[Report](https://github.com/trailofbits/publications/blob/master/reviews/YieldProtocol.pdf)
 
 ### 138. Yield Protocol
 
@@ -78,6 +84,8 @@
 
 ## 0x Protocol Audit
 
+[Report](https://github.com/trailofbits/publications/blob/master/reviews/0x-protocol.pdf)
+
 ### 142. 0x Protocol
 
 **Finding**: Lack of events for critical operations
@@ -97,6 +105,8 @@
 **Recommendation**: Add a `return` statement or remove the return type. Properly adjust the documentation, if needed.
 
 ## DFX Finance Audit
+
+[Report](https://github.com/dfx-finance/protocol/blob/main/audits/2021-05-03-Trail_of_Bits.pdf)
 
 ### 144. DFX Finance
 
@@ -165,6 +175,8 @@
 
 ## Hermez Network Audit
 
+[Report](https://github.com/trailofbits/publications/blob/master/reviews/hermez.pdf)
+
 ### 151. Hermez Network
 
 **Finding**: Account creation spam
@@ -226,6 +238,8 @@
 - Long term, use Slither, which will help detect duplicate contract names.
 
 ## Advanced Blockchains Audit
+
+[Report](https://github.com/trailofbits/publications/blob/master/reviews/AdvancedBlockchain.pdf)
 
 ### 157. Advanced Blockchains
 
@@ -308,6 +322,8 @@
 - Long term, integrate static analysis tools like `Slither` into your CI pipeline to detect unsafe pragmas.
 
 ## dForce Lending Audit
+
+[Report](https://github.com/dforce-network/documents/blob/master/audit_report/Lending/dForceLending-Audit-Report-TrailofBits-Mar-2021.pdf)
 
 ### 165. dForce Lending
 

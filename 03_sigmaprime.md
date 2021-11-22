@@ -2,6 +2,8 @@
 
 ## Ether Collateral Audit
 
+[Report](https://github.com/sigp/public-audits/blob/master/synthetix/ethercollateral/review.pdf)
+
 ### 167. Synthetix EtherCollateral
 
 **Finding**: Redundant and Unused Code
@@ -38,6 +40,8 @@
 
 ## InfiniGold Audit
 
+[Report](https://github.com/sigp/public-audits/raw/master/infinigold/review.pdf)
+
 ### 171. InfiniGold
 
 **Finding**: Possible Unintended Token Burning in `transferFrom()` Function:
@@ -71,6 +75,8 @@
 **Recommendation**: Consider removing the require statement for gas saving purposes.
 
 ## Synthetix Unipool Audit
+
+[Report](https://github.com/sigp/public-audits/blob/master/synthetix/unipool/review.pdf)
 
 ### 175. Synthetix Unipool
 

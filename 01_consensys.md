@@ -1,5 +1,5 @@
 # Consensys Findings
-
+___
 ## Umbra audit
 
 [Report](https://consensys.net/diligence/audits/2021/03/umbra-smart-contracts)
@@ -29,7 +29,7 @@
 3. Rebasing tokens:
     - A combination of the above cases, these are tokens in which an account’s balance increases or decreases along with expansions or contractions in supply.
     - The contract provides no mechanism to update its internal accounting in response to these unexpected balance adjustments, and funds may be lost as a result.
-
+___
 ## DeFi DefiSaver Audit
 
 [Report](https://consensys.net/diligence/audits/2021/03/defi-saver)
@@ -65,7 +65,7 @@
 **Description**: `DefiSaverLogger` is used as a logging aggregator within the entire dapp, but anyone can create logs.
 
 **Recommendation**: Add access control to all functions appropriately
-
+___
 ## DAOfi Audit
 
 [Report](https://consensys.net/diligence/audits/2021/02/daofi)
@@ -77,7 +77,7 @@
 **Description**: Remove inline comments that suggest the two `uint256` values `DAOfiV1Pair.reserveBase` and `DAOfiV1Pair.reserveQuote` are stored in the same storage slot. This is likely a carryover from the `UniswapV2Pair` contract, in which `reserve0`, `reserve1`, and `blockTimestampLast` are packed into a single storage slot.
 
 **Recommendation**: Remove stale comments
-
+___
 ## mstable-1.1 Audit
 
 [Report](https://consensys.net/diligence/audits/2020/07/mstable-1.1)
@@ -109,7 +109,7 @@
 **Description**: Increased testing of edge cases in complex mathematical operations could have identified at least one issue raised in this report. Additional unit tests are recommended, as well as fuzzing or property-based testing of curve-related operations. Improperly validated interactions with the `BancorFormula` contract are seen to fail in unanticipated and potentially dangerous ways, so care should be taken to validate inputs and prevent pathological curve parameters.
 
 **Recommendation**: More validation of mathematical operations
-
+___
 ## Fei Protocol Audit
 
 [Report](https://consensys.net/diligence/audits/2021/01/fei-protocol)
@@ -121,7 +121,7 @@
 **Description**: `GovernorAlpha` allows proposals to be canceled via `cancel`. A proposer may cancel proposals in any of these states: `Pending`, `Active`, `Canceled`, `Defeated`, `Succeeded`, `Queued`, `Expired`.
 
 **Recommendation**: Prevent proposals from being canceled unless they are in the `Pending` or `Active` states.
-
+___
 ## eRLC Audit
 
 [Report](https://consensys.net/diligence/audits/2021/01/erlc-iexec)
@@ -133,7 +133,7 @@
 **Description**: The KYC Admin has the ability to freeze the funds of any user at any time by revoking the `KYC_MEMBER_ROLE`. The trust requirements from users can be decreased slightly by implementing a delay on granting this ability to new addresses. While the management of private keys and admin access is outside the scope of this review, the addition of a time delay can also help protect the development team and the system itself in the event of private key compromise.
 
 **Recommendation**: Use a `TimelockController` as the `KYC_DEFAULT_ADMIN` of the `eRLC` contract
-
+___
 ## 1inch liquidity protocol audity
 
 [Report](https://consensys.net/diligence/audits/2020/12/1inch-liquidity-protocol)
@@ -179,7 +179,7 @@
 **Description**: In a number of cases, administrators of contracts can update or upgrade things in the system without warning. This has the potential to violate a security goal of the system. Specifically, privileged roles could use front running to make malicious changes just ahead of incoming transactions, or purely accidental negative effects could occur due to the unfortunate timing of changes. In general users of the system should have assurances about the behavior of the action they’re about to take.
 
 **Recommendation**: We recommend giving the user advance notice of changes with a time lock. For example, make all system-parameter and upgrades require two steps with a mandatory time window between them. The first step merely broadcasts to users that a particular change is coming, and the second step commits that change after a suitable waiting period. This allows users that do not accept the change to withdraw immediately.
-
+___
 ## Growth DeFi Audit
 
 [Report](https://consensys.net/diligence/audits/2020/12/growth-defi-v1)
@@ -231,7 +231,7 @@
 **Description**: `DydxFlashLoanAbstraction._requestFlashLoan` performs external calls in a potentially-unbounded loop. Depending on changes made to DyDx’s `SoloMargin`, this may render this flash loan provider prohibitively expensive. In the worst case, changes to `SoloMargin` could make it impossible to execute this code due to the block gas limit.
 
 **Recommendation**: Reconsider or bound the loop
-
+___
 ## Paxos Audit
 
 [Report](https://consensys.net/diligence/audits/2020/11/paxos)
@@ -245,7 +245,7 @@
 **Recommendation**: In `setOwners_()`, before adding new owners, loop through the current set of owners and clear their `isOwner` booleans
 
 **Severity**: Critical
-
+___
 ## Aave Protocol V2 Audit
 
 [Report](https://consensys.net/diligence/audits/2020/09/aave-protocol-v2)
@@ -257,7 +257,7 @@
 **Description**: Flash loans allow users to borrow large amounts of liquidity from the protocol. It is possible to adjust the stable rate up or down by momentarily removing or adding large amounts of liquidity to reserves.
 
 **Recommendation**: This type of manipulation is difficult to prevent especially when flash loans are available. Aave should monitor the protocol at all times to make sure that interest rates are being rebalanced to sane values.
-
+___
 ## Aave Governance DAO Audit
 
 [Report](https://consensys.net/diligence/audits/2020/08/aave-governance-dao)
@@ -269,7 +269,7 @@
 **Description**: Because some of the functionality relies on correct token behavior, any whitelisted token should be audited in the context of this system. Problems can arise if a malicious token is whitelisted because it can block people from voting with that specific token or gain unfair advantage if the balance can be manipulated.
 
 **Recommendation**: Make sure to audit any new whitelisted asset.
-
+___
 ## Aave CPM Price Provider Audit
 
 [Report](https://consensys.net/diligence/audits/2020/05/aave-cpm-price-provider)
@@ -289,7 +289,7 @@
 **Description**: In order to understand the risk of the Chainlink oracle deviating significantly, it would be helpful to compare historical prices on Chainlink when prices are moving rapidly, and see what the largest historical delta is compared to the live price on a large exchange.
 
 **Recommendation**: Review Chainlink’s performance at times of price volatility
-
+___
 ## Lien Protocol Audit
 
 [Report](https://consensys.net/diligence/audits/2020/05/lien-protocol)
@@ -301,7 +301,7 @@
 **Description**: The system has many components with complex functionality and no apparent upgrade path.
 
 **Recommendation**: We recommend identifying which components are crucial for a minimum viable system, then focusing efforts on ensuring the security of those components first, and then moving on to the others. During the early life of the system, have a method for pausing and upgrading the system.
-
+___
 ## Balancer Finance Audit
 
 [Report](https://consensys.net/diligence/audits/2020/05/balancer-finance)
@@ -321,7 +321,7 @@
 **Description**: `BPool` functions often use modifiers in the following order: `_logs_`, `_lock_`. Because `_lock_` is a reentrancy guard, it should take precedence over `_logs_`.
 
 **Recommendation**: Place `_lock_` before other modifiers; ensuring it is the very first and very last thing to run when a function is called.
-
+___
 ## MCDEX Mai Protocol V2 Audit
 
 [Report](https://consensys.net/diligence/audits/2020/05/mcdex-mai-protocol-v2)

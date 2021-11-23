@@ -1,5 +1,5 @@
 # Trail of Bits Audit findings
-
+___
 ## Liquidity Audit
 
 [Report](https://github.com/trailofbits/publications/blob/master/reviews/Liquity.pdf)
@@ -11,7 +11,7 @@
 **Description**: The order of operations in the `_moveTokensAndETHfromAdjustment` function in the `BorrowOperations` contract may allow an attacker to cause events to be emitted out of order. In the event that the borrower is a contract, this could trigger a callback into `BorrowerOperations`, executing the `_adjustTrove` flow above again. As the `_moveTokensAndETHfromAdjustment` call is the final operation in the function the state of the system on-chain cannot be manipulated. However, there are events that are emitted after this call. In the event of a reentrant call, these events would be emitted in the incorrect order. The event for the second operation is emitted first, followed by the event for the first operation. Any off-chain monitoring tools may now have an inconsistent view of on-chain state.
 
 **Recommendation**: Apply the checks-effects-interactions pattern and move the event emissions above the call to `_moveTokensAndETHfromAdjustment` to avoid the potential reentrancy.
-
+___
 ## Origin Dollar Audit
 
 [Report](https://github.com/trailofbits/publications/blob/master/reviews/OriginDollar.pdf)
@@ -39,7 +39,7 @@
 **Description**: Multiple contracts are the implementation of their interfaces, but do not inherit from them. This behavior is error-prone and might lead the implementation to not follow the interface if the code is updated.
 
 **Recommendation**: Ensure contracts inherit from their interfaces
-
+___
 ## Yield Protocol Audit
 
 [Report](https://github.com/trailofbits/publications/blob/master/reviews/YieldProtocol.pdf)
@@ -81,7 +81,7 @@
 **Recommendation**:
 - Short term, add a require statement to check that the delegate address is not already enabled or disabled for the user. This will ensure log messages are only emitted when a delegate is activated or deactivated.
 - Long term, review all operations and avoid emitting events in repeated calls to idempotent operations. This will help prevent bloated logs.
-
+___
 ## 0x Protocol Audit
 
 [Report](https://github.com/trailofbits/publications/blob/master/reviews/0x-protocol.pdf)
@@ -103,7 +103,7 @@
 **Description**: The `_assertStakingPoolExists` should return a `bool` to determine if the staking pool exists or not; however, it only returns `false` or reverts. The `_assertStakingPoolExists` function checks that a staking pool exists given a pool id parameter. However, this function does not use a `return` statement and therefore, it will always return `false` or revert.
 
 **Recommendation**: Add a `return` statement or remove the return type. Properly adjust the documentation, if needed.
-
+___
 ## DFX Finance Audit
 
 [Report](https://github.com/dfx-finance/protocol/blob/main/audits/2021-05-03-Trail_of_Bits.pdf)
@@ -172,7 +172,7 @@
 
 **Recommendation**:
 - Short term, consider rewriting `setFrozen` such that any contract freeze will not last long enough for a malicious user to easily execute an attack. Alternatively, depending on the intended use of this function, consider implementing permanent freezes.
-
+___
 ## Hermez Network Audit
 
 [Report](https://github.com/trailofbits/publications/blob/master/reviews/hermez.pdf)
@@ -236,7 +236,7 @@
 **Recommendation**:
 - Short term, prevent the re-use of duplicate contract names or change the compilation framework.
 - Long term, use Slither, which will help detect duplicate contract names.
-
+___
 ## Advanced Blockchains Audit
 
 [Report](https://github.com/trailofbits/publications/blob/master/reviews/AdvancedBlockchain.pdf)
@@ -320,7 +320,7 @@
 **Recommendation**:
 - Short term, use neither `ABIEncoderV2` nor any other experimental Solidity feature. Refactor the code such that structs do not need to be passed to or returned from functions.
 - Long term, integrate static analysis tools like `Slither` into your CI pipeline to detect unsafe pragmas.
-
+___
 ## dForce Lending Audit
 
 [Report](https://github.com/dforce-network/documents/blob/master/audit_report/Lending/dForceLending-Audit-Report-TrailofBits-Mar-2021.pdf)

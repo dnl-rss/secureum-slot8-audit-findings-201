@@ -1,5 +1,5 @@
 # Sigma Prime Audit Findings
-
+___
 ## Ether Collateral Audit
 
 [Report](https://github.com/sigp/public-audits/blob/master/synthetix/ethercollateral/review.pdf)
@@ -37,7 +37,7 @@
 **Description**: log events are declared but never emitted.
 
 **Recommendation**: Remove these events from the `EtherCollateral` contract.
-
+___
 ## InfiniGold Audit
 
 [Report](https://github.com/sigp/public-audits/raw/master/infinigold/review.pdf)
@@ -73,7 +73,7 @@
 **Description**: The following require statement in `Blacklistable.sol` can be removed: `require(to != address(0))`; Indeed, this check is implemented in the `_transfer()` function in the `ERC20.sol` smart contract.
 
 **Recommendation**: Consider removing the require statement for gas saving purposes.
-
+___
 ## Synthetix Unipool Audit
 
 [Report](https://github.com/sigp/public-audits/blob/master/synthetix/unipool/review.pdf)

@@ -142,7 +142,11 @@ ___
 
 **Finding**: Improve inline documentation and test coverage
 
-**Description**: The source-units hardly contain any inline documentation which makes it hard to reason about methods and how they are supposed to be used. Additionally, test-coverage seems to be limited. Especially for a public-facing exchange contract system test-coverage should be extensive, covering all methods and functions that can directly be accessed including potential security-relevant and edge-cases. This would have helped in detecting some of the findings raised with this report.
+**Description**:
+
+The source-units hardly contain any inline documentation which makes it hard to reason about methods and how they are supposed to be used.
+
+Additionally, test-coverage seems to be limited. Especially for a public-facing exchange contract system test-coverage should be extensive, covering all methods and functions that can directly be accessed including potential security-relevant and edge-cases. This would have helped in detecting some of the findings raised with this report.
 
 **Recommendation**: Consider adding natspec-format compliant inline code documentation, describe functions, what they are used for, and who is supposed to interact with them. Document function or source-unit specific assumptions. Increase test coverage.
 
@@ -150,7 +154,9 @@ ___
 
 **Finding**: Unspecific compiler version `pragma`
 
-**Description**: For most source-units the compiler version `pragma` is very unspecific `^0.6.0`. While this often makes sense for libraries to allow them to be included with multiple different versions of an application, it may be a security risk for the actual application implementation itself. A known vulnerable compiler version may accidentally be selected or security tools might fall-back to an older compiler version ending up actually checking a different evm compilation that is ultimately deployed on the blockchain.
+**Description**:
+
+For most source-units the compiler version `pragma` is very unspecific `^0.6.0`. While this often makes sense for libraries to allow them to be included with multiple different versions of an application, it may be a security risk for the actual application implementation itself. A known vulnerable compiler version may accidentally be selected or security tools might fall-back to an older compiler version ending up actually checking a different evm compilation that is ultimately deployed on the blockchain.
 
 **Recommendation**: Avoid floating pragmas. We highly recommend pinning a concrete compiler version (latest without security issues) in at least the top-level “deployed” contracts to make it unambiguous which compiler version is being used. Rule of thumb: a flattened source-unit should have at least one non-floating concrete solidity compiler version pragma.
 
@@ -164,19 +170,33 @@ ___
 
 ### 117. 1inch Liquidity Protocol
 
+<span style="color:black; background-color:red">Critical</span>
+
 **Finding**: Anyone can steal all the funds that belong to `ReferralFeeReceiver`
 
-**Description**: The `ReferralFeeReceiver` receives pool shares when users `swap()` tokens in the pool. A `ReferralFeeReceiver` may be used with multiple pools and, therefore, be a lucrative target as it is holding pool shares. Any token or ETH that belongs to the `ReferralFeeReceiver` is at risk and can be drained by any user by providing a custom mooniswap pool contract that references existing token holdings. It should be noted that none of the functions in `ReferralFeeReceiver` verify that the user-provided mooniswap pool address was actually deployed by the linked `MooniswapFactory`.
+**Description**:
 
-**Recommendation**: Enforce that the user-provided mooniswap contract was actually deployed by the linked factory. Other contracts cannot be trusted. Consider implementing token sorting and de-duplication (`tokenA != tokenB`) in the pool contract constructor as well. Consider employing a reentrancy guard to safeguard the contract from reentrancy attacks. Improve testing. The methods mentioned here are not covered at all. Improve documentation and provide a specification that outlines how this contract is supposed to be used.
+The `ReferralFeeReceiver` receives pool shares when users `swap()` tokens in the pool. A `ReferralFeeReceiver` may be used with multiple pools and, therefore, be a lucrative target as it is holding pool shares.
 
-**Severity**: Critical
+Any token or ETH that belongs to the `ReferralFeeReceiver` is at risk and can be drained by any user by providing a custom `mooniswap` pool contract that references existing token holdings.
+
+It should be noted that none of the functions in `ReferralFeeReceiver` verify that the user-provided `mooniswap` pool address was actually deployed by the linked `MooniswapFactory`.
+
+**Recommendation**: Enforce that the user-provided `mooniswap` contract was actually deployed by the linked factory. Other contracts cannot be trusted. Consider implementing token sorting and de-duplication (`tokenA != tokenB`) in the pool contract constructor as well. Consider employing a reentrancy guard to safeguard the contract from reentrancy attacks.
+
+Improve testing. The methods mentioned here are not covered at all. Improve documentation and provide a specification that outlines how this contract is supposed to be used.
 
 ### 118. 1inch Liquidity Protocol
 
 **Finding**: Unpredictable behavior for users due to admin front running or general bad timing
 
-**Description**: In a number of cases, administrators of contracts can update or upgrade things in the system without warning. This has the potential to violate a security goal of the system. Specifically, privileged roles could use front running to make malicious changes just ahead of incoming transactions, or purely accidental negative effects could occur due to the unfortunate timing of changes. In general users of the system should have assurances about the behavior of the action they’re about to take.
+**Description**:
+
+In a number of cases, administrators of contracts can update or upgrade things in the system without warning. This has the potential to violate a security goal of the system.
+
+Specifically, privileged roles could use front running to make malicious changes just ahead of incoming transactions, or purely accidental negative effects could occur due to the unfortunate timing of changes.
+
+In general users of the system should have assurances about the behavior of the action they’re about to take.
 
 **Recommendation**: We recommend giving the user advance notice of changes with a time lock. For example, make all system-parameter and upgrades require two steps with a mandatory time window between them. The first step merely broadcasts to users that a particular change is coming, and the second step commits that change after a suitable waiting period. This allows users that do not accept the change to withdraw immediately.
 ___
@@ -238,13 +258,14 @@ ___
 
 ### 125. Paxos
 
+<span style="color:black; background-color:red">Critical</span>
+
 **Finding**: Owners can never be removed
 
 **Description**: The intention of `setOwners()` is to replace the current set of owners with a new set of owners. However, the `isOwner` mapping is never updated, which means any address that was ever considered an owner is permanently considered an owner for purposes of signing transactions.
 
 **Recommendation**: In `setOwners_()`, before adding new owners, loop through the current set of owners and clear their `isOwner` booleans
 
-**Severity**: Critical
 ___
 ## Aave Protocol V2 Audit
 

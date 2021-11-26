@@ -4,17 +4,21 @@ ___
 
 [Report](https://github.com/sigp/public-audits/blob/master/synthetix/ethercollateral/review.pdf)
 
-### 167. Synthetix EtherCollateral
+### 167. SEC-04
 
 **Finding**: Redundant and Unused Code
 
-**Description**: The `_recordLoanClosure()` function returns a boolean ( `loanClosed` ) which is never used by the calling function (see `_closeLoan()` , line [312]). Furthermore, since the `_recordLoanClosure()` function is only called via the `_closeLoan()` function, this means that `synthLoan.timeClosed` is always equal to zero (see require statement on line [305]). Therefore, the if statement on line [357] is redundant and unnecessary.
+**Description**:
+
+The `_recordLoanClosure()` function returns `(bool loanClosed)` which is never used by the calling function (see `_closeLoan()` , line [312]).
+
+Furthermore, since the `_recordLoanClosure()` function is only called via the `_closeLoan()` function, this means that `synthLoan.timeClosed` is always equal to zero (see `require` statement on line [305]). Therefore, the `if` statement on line [357] is redundant and unnecessary.
 
 **Recommendation**:
-1. Using the return value of the `_recordLoanClosure()` function or changing the function definition to stop returning `loanClosed`
+1. Using the return value of the `_recordLoanClosure()` function or changing the function definition to stop returning `bool loanClosed`
 2. Removing the `if` statement in line [357]
 
-### 168.Synthetix EtherCollateral
+### 168. SEC-05
 
 **Finding**: Single Account Can Capture All Supply
 
@@ -22,15 +26,40 @@ ___
 
 **Recommendation**: Make sure this behaviour is understood and consider introducing and enforcing a cap ( `maxLoanSize` ) on the size of the loans allowed to be opened.
 
-### 169.Synthetix EtherCollateral
+### 169. SEC-06
 
 **Finding**: Insufficient Input Validation
 
-**Description**: The constructor of the `EtherCollateral` smart contract does not check the validity of the addresses provided as input parameters. It is possible to deploy an instance of the `EtherCollateral` contract with the `synthProxy`, `sUSDProxy`, and depot addresses set to zero. Similarly, the effective interest rate can be equal to zero if `interestRate` is set to any value lesser than 31536000 ( `SECONDS_IN_A_YEAR` ), as `interestPerSecond` will be null.
+**Description**:
+
+The `constructor` of the `EtherCollateral` smart contract does not check the validity of the addresses provided as input parameters. It is possible to deploy an instance of the `EtherCollateral` contract with the `synthProxy`, `sUSDProxy`, and `depot` addresses set to zero.
+
+Similarly, the effective interest rate can be equal to zero if `interestRate` is set to any value lesser than 31536000 ( `SECONDS_IN_A_YEAR` ), as `interestPerSecond` will be `null`.
 
 **Recommendation**: Consider introducing `require` statements to perform adequate input validation.
 
-### 170. Synthetix EtherCollateral
+```solidity
+contract EtherCollateral {
+
+  // ...
+
+  constructor(address _synthProxy, uint256 _sUSDProxy, address _depot) {
+
+    // add require statements for input validation
+    require( _depot != address(0) );
+    require( _synthProxy != 0 );
+    require( _sUSDProxy != address(0) );
+  }
+
+  function setInterestRate(uint256 interestRate) {
+
+    // add require statements for input validation
+    require( interestRate > SECONDS_IN_A_YEAR );
+  }
+}
+```
+
+### 170. SEC-08
 
 **Finding**: Unused Event Logs
 

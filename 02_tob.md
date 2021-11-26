@@ -16,23 +16,68 @@ ___
 
 [Report](https://github.com/trailofbits/publications/blob/master/reviews/OriginDollar.pdf)
 
-### 135. Origin Dollar
+[Docs](https://docs.ousd.com/v/en/)
+
+### 135. TOB-OUSD-016
 
 **Finding**: Variable shadowing from OUSD to ERC20
 
 **Description**: OUSD inherits from ERC20, but redefines the `_allowances` and `_totalSupply` state variables. As a result, access to these variables can lead to returning different values.
 
+```solidity
+//INSECURE CODE from OUSD.sol
+contract InitializableToken is ERC20, InitializableERC20Detailed {
+  // ...
+}
+
+contract OUSD is Initializable, InitializableToken, Governable {
+  // ...
+
+  // define_allowances and _totalSupply are also defined in ERC20
+  uint private _totalSupply;
+  // ...
+  mapping(address => mapping(address => uint256)) private _allowances;
+}
+```
+
 **Recommendation**: Remove the shadowed variables (`_allowances` and `_totalSupply`) in OUSD.
 
-### 136. Origin Dollar
+### 136. TOB-OUSD-017
 
 **Finding**: `VaultCore.rebase` functions have no return statements
 
-**Description**: `VaultCore.rebase()` and `VaultCore.rebase(bool)` return a `uint` but lack a return statement. As a result these functions will always return the default value, and are likely to cause issues for their callers. Both `VaultCore.rebase()` and `VaultCore.rebase(bool)` are expected to return a `uint256`. `rebase()` does not have a return statement. `rebase(bool)` has one return statement in one branch (return 0), but lacks a return statement for the other paths. So both functions will always return zero. As a result, a third-party code relying on the return value might not work as intended.
+**Description**: `VaultCore.rebase()` and `VaultCore.rebase(bool)` return a `uint` but lack a return statement. As a result these functions will always return the default value, and are likely to cause issues for their callers.
+
+Both `VaultCore.rebase()` and `VaultCore.rebase(bool)` are expected to return a `uint256`.
+
+```solidity
+// INSECURE CODE from VaultCore.sol
+
+// rebase has no return statement
+// always returns 0
+function rebase() public whenNotRebasePause returns (uint256) {
+  rebase(true);
+}
+
+// rebase(bool) has only one return statement for one path (return 0)
+// always returns 0
+function rebase(bool sync) internal whenNotRebasePaused returns (uint256) {
+  if (oUSD.totalSupply() == 0) return 0;
+  uint256 oldTotalSupply = oUSD.totalSupply();
+  uint256 newTotalSupply = _totalValue():
+  if (newTotalSupply > oldTotalSupply);
+    oUSD.changeSupply(newTotalSupply);
+    if (rebaseHooksAddr != address(0)) {
+      IRebaseHooks(rebaseHooksAddr).postRebase(sync)
+    }
+}
+```
+
+`rebase()` does not have a return statement. `rebase(bool)` has one return statement in one branch (return 0), but lacks a return statement for the other paths. So both functions will always return zero. As a result, a third-party code relying on the return value might not work as intended.
 
 **Recommendation**: Add the missing return statement(s) or remove the return type in `VaultCore.rebase()` and `VaultCore.rebase(bool)`. Properly adjust the documentation as necessary.
 
-### 137. Origin Dollar
+### 137. TOB-OUSD-018
 
 **Finding**: Multiple contracts are missing inheritances
 
